@@ -12,18 +12,6 @@ spring:
     properties:
       hibernate:
         generate_statistics: false
-#        default_schema: PUBLIC
-#        jdbc:
-#          batch_size: 1000
-#          fetch_size: 350
-#        order_inserts: true
-#        order_updates: true
-#        batch_versioned_data: true
   liquibase:
     enabled: true
     changeLog: classpath:/db/db.changelog.xml
-#    checkChangeLogLocation: true
-#    default-schema: STORE
-
-
-#spring.resources.add-mappings=true
