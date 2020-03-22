@@ -1,6 +1,7 @@
 package com.example.store.impl.logic.exceptions.handler;
 
 import com.example.store.impl.logic.exceptions.JsonError;
+import com.example.store.impl.logic.exceptions.OrderBadRequestException;
 import com.example.store.impl.logic.exceptions.ProductBadRequestException;
 import com.example.store.impl.logic.exceptions.ProductNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,14 @@ public class ExceptionHandlerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ProductBadRequestException.class)
     protected JsonError productBadRequest(final Exception exception) {
-        return getJsonException(exception, HttpStatus.NOT_FOUND);
+        return getJsonException(exception, HttpStatus.BAD_REQUEST);
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(OrderBadRequestException.class)
+    protected JsonError orderBadRequest(final Exception exception) {
+        return getJsonException(exception, HttpStatus.BAD_REQUEST);
     }
 
     private JsonError getJsonException(Exception exception, HttpStatus httpStatus) {

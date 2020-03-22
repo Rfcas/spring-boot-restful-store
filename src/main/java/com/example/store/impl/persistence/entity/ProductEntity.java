@@ -4,9 +4,11 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
-@Table(name = "PRODUCTS")
 @Entity
+@Table(name = "PRODUCTS")
 @Builder
 @Getter
 @Setter
@@ -33,4 +35,6 @@ public class ProductEntity {
     @Column(name = "IS_ACTIVE")
     private Boolean isActive = true;
 
+    @ManyToMany(mappedBy = "products")
+    Set<OrderEntity> orders = new HashSet<>();
 }

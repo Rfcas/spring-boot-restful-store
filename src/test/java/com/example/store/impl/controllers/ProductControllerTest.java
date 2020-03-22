@@ -17,7 +17,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDateTime;
@@ -28,22 +27,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@RunWith(SpringRunner.class)
-
-//@ExtendWith(SpringExtension.class)
-//@WebMvcTest(controllers = ProductController.class)
-
-//@RunWith(MockitoJUnitRunner.class)
-
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
-//@AutoConfigureMockMvc
-//
-//@ExtendWith(MockitoExtension.class)
-
-
 @RunWith(SpringRunner.class)
-@WebMvcTest
+@WebMvcTest(ProductController.class)
 class ProductControllerTest {
 
     @Autowired
@@ -67,7 +52,7 @@ class ProductControllerTest {
 
         when(productService.create(any())).thenReturn(product);
 
-        MvcResult test = mockMvc.perform(post("/api/v1/products")
+        mockMvc.perform(post("/api/v1/products")
                 .accept(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(createProductRequest))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -77,9 +62,6 @@ class ProductControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.isActive", Matchers.equalTo(true)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.price", Matchers.equalTo(1.0)))
                 .andReturn();
-
-        String b = test.getResponse().getContentAsString();
-        String a = "";
     }
 
     @Test
@@ -100,7 +82,7 @@ class ProductControllerTest {
         List<Product> products = Lists.newArrayList(product);
         when(productService.list()).thenReturn(products);
 
-        MvcResult test = mockMvc.perform(get("/api/v1/products/list")
+        mockMvc.perform(get("/api/v1/products/list")
                 .accept(MediaType.APPLICATION_JSON)
                 .content(TestUtils.convertObjectToJsonBytes(product))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -110,9 +92,6 @@ class ProductControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].isActive", Matchers.equalTo(true)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].price", Matchers.equalTo(1.0)))
                 .andReturn();
-
-        String b = test.getResponse().getContentAsString();
-        String a = "";
     }
 
     @Test

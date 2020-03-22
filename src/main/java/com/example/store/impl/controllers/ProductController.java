@@ -3,16 +3,10 @@ package com.example.store.impl.controllers;
 import com.example.store.impl.logic.services.ProductService;
 import com.example.store.model.Product;
 import com.example.store.model.requests.CreateProductRequest;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,15 +16,11 @@ public class ProductController {
     private final ProductService productService;
 
     @Autowired
-    public ProductController(@RequestBody ProductService productService) {
+    public ProductController(@RequestBody @Valid ProductService productService) {
         this.productService = productService;
     }
 
     @PostMapping
-
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Ok"),
-            @ApiResponse(code = 400, message = "Bad Request")})
     public Product createProduct(@RequestBody CreateProductRequest product) {
         return productService.create(product);
     }

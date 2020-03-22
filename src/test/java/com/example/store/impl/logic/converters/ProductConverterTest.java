@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @SpringBootTest
@@ -92,7 +91,7 @@ class ProductConverterTest {
 
         ProductEntity res = classUnderTest.productEntityfromProductRequest(createProductRequest);
 
-        Assertions.assertThat(res).isEqualToComparingFieldByField(product);
+        Assertions.assertThat(res).isEqualToIgnoringGivenFields(product, "orders");
     }
 
     @Test
@@ -104,7 +103,7 @@ class ProductConverterTest {
 
         ProductEntity res = classUnderTest.productEntityfromProductRequest(createProductRequest);
 
-        Assertions.assertThat(res).isEqualToComparingFieldByField(product);
+        Assertions.assertThat(res).isEqualToIgnoringGivenFields(product, "orders");
     }
 
     @Test
