@@ -1,0 +1,9 @@
+version: '2.2'
+
+services:
+  store:
+    image: store:0.0.1-SNAPSHOT
+    restart: always
+    ports:
+      - 8080:8080
+    entrypoint: ["java","-jar","-Dspring.profiles.active=dev","app.jar"]
